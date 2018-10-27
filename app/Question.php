@@ -25,5 +25,35 @@ class Question extends Model
     	['status'=>0,'msg'=>'insert failed'];
     	
     }
+    /*更新问题api*/
+    public function change(){
+        /*检查用户是否登录*/
+        if(!user_ins()->is_logged_in()){
+            return ['status'=>0,'msg'=>'login required'];
+        }
+
+        /*检查传参中是否有id*/
+        if(!rq('id'))
+            return ['status'=>0,'msg'=>'id is required'];
+
+        /*获取指定id的model*/
+        $question = $this->find(rq('id'));
+        if(!$question)
+            return ['status'=>0,'msg'=>'question not exists'];
+        /*判断问题是否存在*/
+        if($question->user_id != session('user_id')){
+            return ['status'=>0,'msg'=>'permission denied'];
+        }
+
+        if(rq('title'))
+            $question->title = rq('title');
+
+        if(rq('desc'))
+            $question->desc = rq('desc');
+
+        return $question->save() ?
+            ['status'=>1] :
+            ['status'=>0,'msg'=>'insert failed'];
+    }
     
 }
