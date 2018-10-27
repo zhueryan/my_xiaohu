@@ -13,7 +13,14 @@
 function user_ins(){
     return new \App\User();
 }
-
+function question_ins(){
+	return new \App\Question();
+};
+function rq($key=null,$default=null){
+	if(!$key)	return Request::all();
+	return Request::get($key,$default);		
+	
+};
 Route::get('/', function () {
     return view('welcome');
 });
@@ -28,4 +35,7 @@ Route::any('api/logout',function (){
 });
 Route::any('test',function (){
     dd(user_ins()->is_logged_in());
+});
+Route::any('api/question/add',function(){
+	return question_ins()->add();
 });
