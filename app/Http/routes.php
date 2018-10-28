@@ -11,16 +11,20 @@
 |
 */
 function user_ins(){
-    return new \App\User();
+    return new \App\User;
 }
 function question_ins(){
-	return new \App\Question();
+	return new \App\Question;
 };
 function rq($key=null,$default=null){
 	if(!$key)	return Request::all();
 	return Request::get($key,$default);		
 	
 };
+function answer_ins(){
+  return new \App\Answer;
+};
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -44,8 +48,12 @@ Route::any('api/question/read',function(){
     return question_ins()->read();
 });
 
- Route::any('api/question/remove',function(){
+Route::any('api/question/remove',function(){
     return question_ins()->remove();
+});
+
+Route::any('api/answer/add',function(){
+    return answer_ins()->add();
 });
 
 Route::any('test',function (){
