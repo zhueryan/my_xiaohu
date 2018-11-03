@@ -264,6 +264,7 @@ class ComposerStaticInitb8bba76af8748cb6391bb21daeef318a
     );
 
     public static $classMap = array (
+        'CreateTableAnswerUser' => __DIR__ . '/../..' . '/database/migrations/2018_11_03_173436_create_table_answer_user.php',
         'CreateTableAnswers' => __DIR__ . '/../..' . '/database/migrations/2018_10_28_152055_create_table_answers.php',
         'CreateTableComments' => __DIR__ . '/../..' . '/database/migrations/2018_11_01_161838_create_table_comments.php',
         'CreateTableQuestions' => __DIR__ . '/../..' . '/database/migrations/2018_10_25_154559_create_table_questions.php',

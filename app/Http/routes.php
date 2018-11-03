@@ -10,6 +10,13 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+function paginate($page=1,$limit=16){
+    $limit = $limit ?: 16;
+    /*skip条件 用于分页 跳过几页*/
+    $skip = ($page ? $page - 1 : 0)* $limit;
+    return [$skip,$limit];
+}
+
 function user_ins(){
     return new \App\User;
 }
@@ -64,6 +71,9 @@ Route::any('api/answer/change',function(){
 Route::any('api/answer/read',function(){
     return answer_ins()->read();
 });
+Route::any('api/answer/vote',function(){
+    return answer_ins()->vote();
+});
 Route::any('api/comment/add',function(){
     return comment_ins()->add();
 });
@@ -73,6 +83,7 @@ Route::any('api/comment/read',function(){
 Route::any('api/comment/remove',function(){
     return comment_ins()->remove();
 });
+Route::any('api/timeline','CommonController@timeline');
 
 Route::any('test',function (){
     dd(user_ins()->is_logged_in());
