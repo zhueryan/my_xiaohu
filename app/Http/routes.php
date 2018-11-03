@@ -67,6 +67,12 @@ Route::any('api/answer/read',function(){
 Route::any('api/comment/add',function(){
     return comment_ins()->add();
 });
+Route::any('api/comment/read',function(){
+    return comment_ins()->read();
+});
+Route::any('api/comment/remove',function(){
+    return comment_ins()->remove();
+});
 
 Route::any('test',function (){
     dd(user_ins()->is_logged_in());
