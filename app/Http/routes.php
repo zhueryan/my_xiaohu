@@ -10,6 +10,17 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+function err($msg=null){
+    return ['status'=>0,'msg'=>$msg];
+}
+function succ($data_to_merge=null){
+
+    $data = ['status'=>1];
+    if($data_to_merge)
+        $data = array_merge($data,$data_to_merge);
+    return $data;
+}
+
 function paginate($page=1,$limit=16){
     $limit = $limit ?: 16;
     /*skip条件 用于分页 跳过几页*/
@@ -46,6 +57,9 @@ Route::any('api/login',function (){
 });
 Route::any('api/logout',function (){
     return user_ins()->logout();
+});
+Route::any('api/user/change_password',function (){
+    return user_ins()->change_password();
 });
 
 Route::any('api/question/add',function(){

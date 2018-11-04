@@ -32,4 +32,6 @@ class CommonController extends Controller
         $data = $data->values()->all();
         return ['status'=>1,'data'=>$data];
     }
+
+
 }
