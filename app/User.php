@@ -116,5 +116,78 @@ class User extends Model
             succ() :
             err('db update failed');
     }
+    /*验证找回密码api*/
+    public function validate_reset_password()
+    {
+        if($this->is_robot(2))
+            return err('max frequency reached');
 
+        if(!rq('phone') || !rq('phone_captcha') || !rq('new_password'))
+            return err('phone and phone_captcha are required');
+        /*检查用户是否存在*/
+        $user = $this->where('phone',rq('phone'))
+            ->where('phone_captcha',rq('phone_captcha'))
+            ->first();
+        if(!$user)
+            return err('invalid phone or phone_captcha');
+        /*加密新密码*/
+        $user->password = bcrypt(rq('new_password'));
+        $this->update_robot_time();
+        return $user->save() ?
+                succ() : err('db update failed');
+
+
+    }
+
+    /*找回密码api*/
+    public function reset_password()
+    {
+
+        if($this->is_robot())
+            return err('max frequency reached');
+
+        if(!rq('phone'))
+            return err('phone is required');
+
+        $user = $this->where('phone',rq('phone'))->first();
+
+        if(!$user)
+            return err('invalid phone number');
+        /*生成验证码*/
+        $captcha = $this->generate_captcha();
+        $user->phone_captcha = $captcha;
+        if($user->save()){
+            /*如果验证码保存成功，发送验证码短信*/
+            $this->send_sms();
+            /*为下一次调用短信接口作准备*/
+            $this->update_robot_time();
+            return succ();
+        }
+        return err('db update failed');
+
+    }
+    /*检查机器人*/
+    public function is_robot($time = 10){
+        /*如果session中没有last_active_time 说明接口从未被调用过*/
+        if(!session('last_active_time'))
+            return false;
+        $current_time = time();
+        $last_active_time = session('last_active_time');
+        return !($current_time - $last_active_time > $time);
+
+    }
+    /*更新机器人行为时间*/
+    public function update_robot_time(){
+        session()->set ('last_active_time',time());
+    }
+
+    /*发送短信*/
+    public function send_sms(){
+        return true;
+    }
+    /*生成验证码*/
+    public function generate_captcha()
+    {
+        return rand(1000,9999);
+    }
 }
