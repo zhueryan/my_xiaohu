@@ -13,11 +13,11 @@
 function err($msg=null){
     return ['status'=>0,'msg'=>$msg];
 }
-function succ($data_to_merge=null){
+function succ($data_to_merge=[]){
 
-    $data = ['status'=>1];
+    $data = ['status'=>1,'data'=>[]];
     if($data_to_merge)
-        $data = array_merge($data,$data_to_merge);
+        $data['data'] = array_merge($data['data'],$data_to_merge);
     return $data;
 }
 
@@ -66,6 +66,9 @@ Route::any('api/user/reset_password',function (){
 });
 Route::any('api/user/validate_reset_password',function (){
     return user_ins()->validate_reset_password();
+});
+Route::any('api/user/read',function (){
+    return user_ins()->read();
 });
 
 Route::any('api/question/add',function(){

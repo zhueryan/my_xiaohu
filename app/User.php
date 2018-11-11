@@ -98,6 +98,13 @@ class User extends Model
             ->withPivot('vote')
             ->withTimestamps();
     }
+    /*与question建立多对多的关系*/
+    public function questions(){
+        return $this
+            ->belongsToMany('App\Question')
+            ->withPivot('vote')
+            ->withTimestamps();
+    }
     /*修改密码api*/
     public function change_password(){
         if(!user_ins()->is_logged_in())
@@ -189,5 +196,24 @@ class User extends Model
     public function generate_captcha()
     {
         return rand(1000,9999);
+    }
+    /*获取用户信息api*/
+    public function read(){
+        if(!rq('id'))
+            return err('id is required');
+
+        $get = ['id','username','avatar_url','intro'];
+        $user = $this->find(rq('id'),$get);
+        $data = $user->toArray();
+        $answer_count = answer_ins()->where('user_id',rq('id'))->count();
+        $question_count = question_ins()->where('user_id',rq('id'))->count();
+        $data['answer_count'] = $answer_count;
+        $data['question_count '] = $question_count ;
+
+//        $answer_count = $this->answers()->count();
+//        $question_count = $this->questions()->count();
+
+        return succ($data);
+
     }
 }
