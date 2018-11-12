@@ -1,13 +1,22 @@
 ;(function () {
     'use strict';
 
-    angular.module('xiaohu',[])
-    .config(function ($interpolateProvider) {
+    angular.module('xiaohu',['ui.router'])
+    .config(function ($interpolateProvider,$stateProvider,$urlRouterProvider) {
         $interpolateProvider.startSymbol('[:')
         $interpolateProvider.endSymbol(':]')
+
+        $urlRouterProvider.otherwise('/home'); //如果没有url（其他的view） 跳转到/home
+        $stateProvider
+            .state('home',{
+                url:'/home',
+                // template:'<h1>首页</h1>'
+                templateUrl: 'home.tpl' //if not find home.tpl on index  then to localhost:8000/home.tpl
+            })
+            .state('login',{
+                url:'/login',
+                templateUrl: 'login.tpl'
+            })
     })
-    /*rootscope*/
-        .controller('TestController',function ($scope) {
-            $scope.name = 'Bob';
-        })
+
 })();
