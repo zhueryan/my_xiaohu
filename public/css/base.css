@@ -1,6 +1,13 @@
 *
 {
-    background: rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+body
+{
+    background: #eee;
 }
 
 .fl
@@ -29,7 +36,14 @@
 
 .navbar
 {
-    /*background:rgba(0,0,0,.1);*/
+    background: #a10;
+    color: #fff;
+}
+a{
+    text-decoration: none;
+}
+.navbar a{
+    color : #fff;
 }
 
 .navbar .brand
@@ -55,6 +69,76 @@
     margin-right: auto;
 }
 
+.container.signup,
+.container.login,
+.container.reset-password
+{
+    width: 600px;
+    margin-top: 15px;
+}
+
 [ui-sref]{
     cursor: pointer;
+}
+
+form,
+lable
+{
+    display: block;
+}
+
+lable
+{
+    margin: 4px 0;
+}
+
+.input-error-set
+{
+    color: #a10;
+    margin:4px 0;
+}
+h1
+{
+    font-size: 18px;
+    margin-top:0;
+}
+.card
+{
+    display:block;
+    padding: 10px 6px;
+    border-radius: 4px;
+    background: #fff;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.1);
+}
+
+input
+{
+    display: block;
+    padding: 5px;
+    border: 1px solid rgba(0,0,0,.1);
+    width: 100%;
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    outline: none;
+}
+
+.input-group
+{
+    margin-bottom: 10px;
+}
+
+button
+{
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    background: #fff;
+}
+
+input,
+button
+{
+    padding : 5px;
 }

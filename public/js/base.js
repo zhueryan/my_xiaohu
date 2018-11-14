@@ -2,7 +2,8 @@
     'use strict';
 
     angular.module('xiaohu',['ui.router'])
-    .config(function ($interpolateProvider,$stateProvider,$urlRouterProvider) {
+    .config(['$interpolateProvider','$stateProvider','$urlRouterProvider',
+        function ($interpolateProvider,$stateProvider,$urlRouterProvider) {
         $interpolateProvider.startSymbol('[:')
         $interpolateProvider.endSymbol(':]')
 
@@ -21,6 +22,21 @@
                 url:'/signup',
                 templateUrl:'signup.tpl'
             })
-    })
+    }])
+        .service('UserService',[
+            function () {
+                var me =this;
+                me.signup_data = {}
+                me.signup = function () {
 
+
+                }
+        }])
+
+        .controller('SignupController',[
+            '$scope','UserService',
+            function ($scope,UserService) {
+                $scope.User = UserService
+            }
+        ])
 })();

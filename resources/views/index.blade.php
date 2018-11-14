@@ -70,40 +70,40 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur do
     </div>
 </script>
 <script type="text/ng-template" id="signup.tpl">
-    <div class="home container">
-        注册
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi consectetur dolor dolore, eaque enim et explicabo ipsum iure iusto maxime modi molestias optio reiciendis repudiandae sunt tenetur voluptatum. Maiores, rerum?
-        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab cumque ea exercitationem fuga incidunt itaque,
-            laborum maiores minima perferendis perspiciatis porro quaerat quos, rem totam velit. Cupiditate enim
-            laudantium totam.
-        </div>
-        <div>Alias corporis cum delectus, deserunt dignissimos dolor dolore fugit impedit minima molestiae molestias,
-            nam nihil nulla perferendis porro quibusdam quidem rerum saepe similique tempore totam veritatis
-            voluptatibus. Adipisci, ipsa, rem.
-        </div>
-        <div>Accusantium alias animi assumenda beatae commodi, consequuntur distinctio enim error, eveniet in ipsum
-            necessitatibus omnis quas quia quidem temporibus voluptatem voluptatibus voluptatum. Ex facilis nobis odit
-            quisquam ratione, sint vitae.
-        </div>
-        <div>Animi assumenda culpa fugiat perferendis porro quasi. Amet, blanditiis eos iure odit omnis reiciendis
-            repellendus ullam. Cupiditate eligendi est explicabo facere facilis laudantium nisi non, obcaecati optio
-            praesentium repellendus repudiandae!
-        </div>
-        <div>Corporis debitis laborum placeat praesentium sequi. Adipisci alias, dolore earum, eius esse illo labore
-            laboriosam neque omnis provident qui, recusandae rem vel. Beatae cum dolores expedita facere laboriosam
-            laborum tempora!
-        </div>
-        <div>Blanditiis dolores facilis ipsum mollitia neque numquam possimus repudiandae voluptates! Aspernatur
-            deserunt dignissimos dolore ea eos laudantium modi molestiae, optio reiciendis reprehenderit sit voluptate!
-            Blanditiis est ipsum maiores reiciendis veritatis.
-        </div>
-        <div>A ab aliquid amet aspernatur, blanditiis commodi consequuntur, deleniti deserunt, eaque laboriosam
-            perferendis porro possimus repudiandae vel veniam. Commodi culpa dignissimos doloremque fugiat libero optio
-            placeat quam reprehenderit ullam ut.
-        </div>
-        <div>Dolor enim fuga id iusto natus officiis possimus quisquam, temporibus voluptatem voluptatum! Animi
-            asperiores ea eos, illo impedit inventore, magni pariatur quasi rem repellat sequi similique, sit soluta ut
-            vel?
+    <div ng-controller="SignupController" class="signup container">
+        <div class="card">
+            <h1>注册</h1>
+            [: User.signup_data :]
+            <form name="signup_form" ng-submit="User.signup()">
+                <div class="input-group">
+                    <lable>用户名：</lable>
+                    <input name="username"
+                           ng-minlength="4"
+                           ng-maxlength="24"
+                           ng-model="User.signup_data.username"
+                           type="text"
+                           required
+                    >
+                </div>
+                <div class="input-error-set">
+                    <div ng-if="signup_form.username.$error.required">
+                        用户名为必填项
+                     </div>
+                    <div></div>
+                </div>
+                <div class="input-group">
+                    <lable>密码：</lable>
+                    <input name="password"
+                           ng-model="User.signup_data.password"
+                           type="password"
+                           ng-minlength="6"
+                           ng-maxlength="255"
+                           required
+                    >
+                </div>
+
+                <button type="sumit" ng-disabled="signup_form.$invalid">注册</button>
+            </form>
         </div>
     </div>
 </script>
