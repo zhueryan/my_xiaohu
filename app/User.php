@@ -216,4 +216,9 @@ class User extends Model
         return succ($data);
 
     }
+    /*校验用户是否存在*/
+    public function exists()
+    {
+        return succ(['count'=>$this->where(rq())->count()]);
+    }
 }
